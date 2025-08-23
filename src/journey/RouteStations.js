@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { useTranslation } from "react-i18next";
-import StationCard from "../StationCard";
-import StationTrack from "../StationTrack";
+import StationCard from "../components/StationCard";
+import StationTrack from "../components/StationTrack";
 import InterchangeIcon from "../metro/InterchangeIcon";
 
 const RouteStations = ({ route }) => {

@@ -11,9 +11,9 @@ import {
   Image
 } from "react-native";
 import { useTranslation } from "react-i18next";
-import RouteForm from "./Journey/RouteForm";
-import JourneySummary from "./Journey/JourneySummary";
-import RouteStations from "./Journey/RouteStations";
+import RouteForm from "../journey/RouteForm";
+import JourneySummary from "../journey/JourneySummary";
+import RouteStations from "../journey/RouteStations";
 import api from "../services/api";
 
 // Import your metro train image

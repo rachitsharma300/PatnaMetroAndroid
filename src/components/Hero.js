@@ -7,7 +7,6 @@ import {
   Image,
   ScrollView,
   StyleSheet,
-  Dimensions,
   Animated,
   useWindowDimensions
 } from "react-native";
@@ -15,9 +14,13 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 
-// Import your images - you'll need to add these to your React Native project
-// For now using placeholder images
-const placeholderImage = require("../assets/placeholder.png");
+// Images
+const placeholderImage1 = require("../assets/patnaMetro1.webp");
+const placeholderImage2 = require("../assets/patnaMetro2.webp");
+const placeholderImage3 = require("../assets/patnaMetro3.webp");
+
+// ✅ SVG import (React Native needs transformer)
+import MetroSVG from "../assets/Metro.svg";
 
 const Hero = () => {
   const { t, i18n } = useTranslation();
@@ -27,14 +30,14 @@ const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const fadeAnim = useState(new Animated.Value(0))[0];
   
-  // Placeholder images array
-  const metroImages = [placeholderImage, placeholderImage, placeholderImage];
+  // Slideshow images
+  const metroImages = [placeholderImage1, placeholderImage2, placeholderImage3];
 
   const changeLanguage = () => {
     i18n.changeLanguage(i18n.language === "en" ? "hi" : "en");
   };
 
-  // Image slider effect
+  // Auto change images
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex(prevIndex => 
@@ -45,7 +48,7 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Fade animation for text
+  // Fade animation
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
@@ -65,7 +68,7 @@ const Hero = () => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.contentRow}>
-          {/* Left Section - Image */}
+          {/* Left Section - Slideshow */}
           <View style={styles.imageContainer}>
             <Image
               source={metroImages[currentImageIndex]}
@@ -74,12 +77,12 @@ const Hero = () => {
             />
           </View>
 
-          {/* Right Section - Content */}
+          {/* Right Section */}
           <View style={styles.contentContainer}>
-            {/* Title with images */}
+            {/* Title + Leaders */}
             <View style={styles.titleSection}>
               <Image
-                source={require("../assets/placeholder.png")} // Replace with PM image
+                source={require("../assets/PM.jpg")}
                 style={styles.leaderImage}
               />
               
@@ -88,16 +91,13 @@ const Hero = () => {
                   {t("hero.title")}
                 </Text>
                 <View style={styles.metroRouteContainer}>
-                  <Image
-                    source={require("../assets/placeholder.png")} // Replace with MetroSVG
-                    style={styles.metroRoute}
-                    resizeMode="contain"
-                  />
+                  {/* ✅ Fixed SVG usage */}
+                  <MetroSVG width={200} height={40} />
                 </View>
               </Animated.View>
               
               <Image
-                source={require("../assets/placeholder.png")} // Replace with CM image
+                source={require("../assets/CM.webp")}
                 style={styles.leaderImage}
               />
             </View>
@@ -231,10 +231,6 @@ const styles = StyleSheet.create({
   metroRouteContainer: {
     alignItems: "center",
   },
-  metroRoute: {
-    width: 200,
-    height: 40,
-  },
   descriptionContainer: {
     marginBottom: 24,
   },
@@ -251,7 +247,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: 8,
   },
   navButton: {
     flexDirection: "row",
@@ -259,9 +254,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
-    gap: 8,
     minWidth: 120,
     justifyContent: "center",
+    margin: 4, // ✅ gap fix
   },
   blueButton: {
     backgroundColor: "#2563eb",

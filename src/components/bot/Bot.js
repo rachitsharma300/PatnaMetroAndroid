@@ -15,13 +15,13 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import stationsData from '../../utils/Stations.json';
+import stationsData from '../../constants/Stations.json';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SendIcon from 'react-native-vector-icons/MaterialIcons';
 import Voice from '@react-native-voice/voice';
 import Tts from 'react-native-tts';
-import bodhiImage from '../../assets/bodhi.png';
-import patnaMetroLogo from '../../assets/patna-metro-logo.png';
+// import bodhiImage from '../../assets/bodhi.png';
+// import patnaMetroLogo from '../../assets/patna-metro-logo.png';
 
 // स्टेशन synonyms की mapping
 const stationAliases = new Map();
@@ -302,7 +302,7 @@ const Bot = ({ setSource, setDestination, triggerSearch }) => {
               <Icon name="times" size={24} color="white" />
             ) : (
               <Image
-                source={require('../../assets/bodhi.png')}
+                source={require('../../assets/bodhi.webp')}
                 style={styles.botImage}
               />
             )}
@@ -321,7 +321,7 @@ const Bot = ({ setSource, setDestination, triggerSearch }) => {
             <View style={styles.modalHeader}>
               <View style={styles.headerLeft}>
                 <Image
-                  source={require('../../assets/bodhi.png')}
+                  source={require('../../assets/bodhi.webp')}
                   style={styles.headerImage}
                 />
                 <Text style={styles.headerText}>

@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { Trans, useTranslation } from "react-i18next";
-import { Button } from "../components/ui/Button";
+import { Button } from "../ui/Button";
 import { MetroTimeline } from "../components/MetroTimeline";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
