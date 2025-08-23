@@ -12,10 +12,47 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        classpath("com.android.tools.build:gradle:8.6.1")
         classpath("com.facebook.react:react-native-gradle-plugin")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://www.jitpack.io" }  // in case koi lib jitpack se ho
+    }
+
+    // ✅ Force old support libs → AndroidX mappings
+    subprojects {
+        project.configurations.all {
+            resolutionStrategy.eachDependency { details ->
+                if (details.requested.group == "com.android.support") {
+                    // Map old support libs to AndroidX
+                    if (details.requested.name == "appcompat-v7") {
+                        details.useTarget "androidx.appcompat:appcompat:1.6.1"
+                    }
+                    if (details.requested.name == "support-v4") {
+                        details.useTarget "androidx.legacy:legacy-support-v4:1.0.0"
+                    }
+                    if (details.requested.name == "support-compat") {
+                        details.useTarget "androidx.core:core:1.12.0"
+                    }
+                    if (details.requested.name == "support-fragment") {
+                        details.useTarget "androidx.fragment:fragment:1.6.2"
+                    }
+                    if (details.requested.name == "animated-vector-drawable") {
+                        details.useTarget "androidx.vectordrawable:animated-vector-drawable:1.1.0"
+                    }
+                    if (details.requested.name == "support-vector-drawable") {
+                        details.useTarget "androidx.vectordrawable:vectordrawable:1.1.0"
+                    }
+                }
+            }
+        }
+    }
+}
